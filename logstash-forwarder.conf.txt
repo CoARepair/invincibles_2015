@@ -1,0 +1,17 @@
+{  
+  "network": {
+    "servers": [ "113.128.161.122:3000" ],
+    "ssl key": "./logstash.key",
+    "ssl ca": "./logstash.crt"
+  },
+
+  
+  "files": [    
+    {
+      "paths": [        
+        "D:\\logs\\*.txt"       
+      ],     
+      "fields": { "type": "Metrics" }
+    }
+  ]
+}

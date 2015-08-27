@@ -1,0 +1,17 @@
+input { 
+lumberjack {
+	port => 3000
+	type => "Metrics"	
+	ssl_certificate => "logstash.crt"
+	ssl_key => "logstash.key"
+}
+  
+}
+output {                                       
+  stdout { }                     
+  elasticsearch { 
+  host => "localhost"
+  cluster => "senseeye"
+  codec => rubydebug  
+  }           
+}

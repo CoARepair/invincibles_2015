@@ -1,0 +1,62 @@
+run log statsh 
+-------------------
+java -jar logstash-1.3.3-flatjar.jar agent -f log4jlumber.conf -- web
+
+
+logstash config
+----------------------
+input {
+  tcp {
+    type => "log4j"
+    port => 4712
+    mode => "server"
+    codec => "plain"
+  }
+  stdin {
+    type => "log4j"
+  }
+}
+
+output {                                       
+  stdout { }                     
+  elasticsearch { 
+  host => "localhost"
+  cluster => "senseeye"
+  codec => "plain"
+  }           
+}
+
+
+generate ssl
+------------------
+C:\Users\Administrator>openssl req -x509 -batch -nodes -newkey rsa:2048 -keyout logstash.key -out logstash.crt -days 365
+
+
++++++++++++++++++run the logstash forwarder+++++++++++++
+D:\soft1>logstash-forwarder -config logstash-forwarder.conf
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+sslDoc
+
+https://www.digitalocean.com/community/tutorials/how-to-use-logstash-and-kibana-to-centralize-logs-on-centos-7
+
+http://stackoverflow.com/questions/22872525/using-log4j-with-logstash
+
+delete the es nodes
+DELETE http://localhost:9200/
+
+ssl doc :-http://www.websense.com/support/article/kbarticle/How-to-use-OpenSSL-and-Microsoft-Certification-Authority
+
+http://blog.yeradis.com/2013/10/logstash-and-apache-log4j-or-how-to.html
+
+http://stackoverflow.com/questions/24861674/can-logstash-read-directly-from-remote-log
+
+https://github.com/elastic/logstash-forwarder
+
+http://michael.bouvy.net/blog/en/2013/12/06/use-lumberjack-logstash-forwarder-to-forward-logs-logstash/
+
+http://serverfault.com/questions/611120/failed-tls-handshake-does-not-contain-any-ip-sans
+
+https://github.com/elastic/logstash-forwarder/issues/189
